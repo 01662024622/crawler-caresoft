@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  caresoft-crawler:
+    build: ./
+    image: caresoft:latest
+    environment:
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
+      - DB_URL=jdbc:mysql://sp1.dev.native.vn:3306/care_soft?createDatabaseIfNotExist=true&autoReconnect=true&UseUnicode=true&characterEncoding=utf8&useSSL=false
+      - DB_USERNAME=
+      - DB_PASSWORD=
+      - DB_DDL_AUTO=update
+      - DB_PLATFORM=vn.edu.topica.crawler.caresoft.utils.mysqldialect.CustomMysqlDialect
+      - CARESOFT_CRAWLER_CRON_HOURLY=0 0,30 * * * *?
+      - CARESOFT_BACKUP_CRAWLER_CRON_HOURLY=0 15 * * * *?
+      - CARESOFT_CRAWLER_CRON_DAILY=0 0 9 * * *?
+    networks:
+      nvn_net:
+networks:
+  nvn_net:
